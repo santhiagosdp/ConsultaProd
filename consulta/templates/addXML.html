@@ -1,0 +1,35 @@
+{% load staticfiles %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+
+    <!-- Static CSS -->
+
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+
+    <title>Consulta</title>
+</head>
+
+<body>
+
+    <main>
+        <p><a href="/ ">Return to home</a></p>
+        <div class="center ">
+            <form method="post " enctype="multipart/form-data ">
+                {% csrf_token %}
+                <input type="file " name="myfile ">
+                <button type="submit ">Upload</button>
+            </form>
+        </div>
+    </main>
+
+</body>
+
+</html>
