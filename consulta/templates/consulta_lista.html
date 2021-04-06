@@ -20,19 +20,19 @@
         <p><a href="/addXML">add xml</a></p>
 
         <form method="GET">
-            <div class=" input-group">
-                <button class=" input-group-text " id=" inputGroup-sizing-default ">Pesquisar</button>
-                <input type="text" placeholder="{{pesquisa}}" name="search" id="search" class=" form-control " aria-label=" Sizing example input " aria-describedby=" inputGroup-sizing-default ">
+            <div class="input-group">
+                <button class="input-group-text" id="inputGroup-sizing-default">Pesquisar</button>
+                <input type="text" placeholder="{{pesquisa}}" name="search" id="search" class=" form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default ">
             </div>
         </form>
 
         <div>
             {% for produto in prods %}
-            <div class=" card " style=" width: auto; ">
-                <div class=" card-body ">
-                    <h5 class=" card-header ">{{ produto.nomeProduto }}</h5>
+            <div class="card" style="width: auto;">
+                <div class="card-body">
+                    <h5 class="card-header">{{ produto.nomeProduto }}</h5>
                 </div>
-                <div class=" card-body ">
+                <div class="card-body">
                     Mercado: {{ produto.mercado }}
                     <br> Valor: {{ produto.preco }}
                     <br> Data: {{ produto.dataCompra }}

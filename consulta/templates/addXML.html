@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load static %}
 
 <!doctype html>
 <html lang="en">
@@ -20,12 +20,12 @@
 <body>
 
     <main>
-        <p><a href="/ ">Return to home</a></p>
-        <div class="center ">
-            <form method="post " enctype="multipart/form-data ">
+        <p><a href="/">Return to home</a></p>
+        <div class="center">
+            <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <input type="file " name="myfile ">
-                <button type="submit ">Upload</button>
+                <input type="file" name="myfile">
+                <button type="submit">Upload</button>
             </form>
         </div>
     </main>
