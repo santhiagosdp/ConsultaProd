@@ -1,5 +1,3 @@
-{% load static %}
-
 <!doctype html>
 <html lang="en">
 
@@ -18,6 +16,9 @@
     <div class="container">
         <br>
         <p><a href="/addXML">add xml</a></p>
+        <p>Usuário: {{request.user}}</p>
+        <p><a href="/sair">Sair</a></p>
+
 
         <form method="GET">
             <div class="input-group">
@@ -25,6 +26,7 @@
                 <input type="text" placeholder="{{pesquisa}}" name="search" id="search" class=" form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default ">
             </div>
         </form>
+        <BR>
 
         <div>
             {% for produto in prods %}
@@ -33,9 +35,11 @@
                     <h5 class="card-header">{{ produto.nomeProduto }}</h5>
                 </div>
                 <div class="card-body">
-                    Mercado: {{ produto.mercado }}
+                    Mercado: {{ produto.fantasia }}
+                    <br> Endereço: {{ produto.endereco }}
                     <br> Valor: {{ produto.preco }}
                     <br> Data: {{ produto.dataCompra }}
+                    <!--<br> Data: {{ produto.author }}-->
                 </div>
             </div>
             <br> {% endfor %}

@@ -1,12 +1,15 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 
 class Produto(models.Model):
-    author = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    #author = models.OneToOneField(User, related_name='profile',on_delete=models.CASCADE)
     mercado = models.CharField(max_length=100)
+    fantasia = models.CharField(max_length=100)
+    cnpj = models.CharField(max_length=20, default="null")
     cidade = models.CharField(max_length=50)
     estado = models.CharField(max_length=20)
     endereco = models.CharField(max_length=250)
