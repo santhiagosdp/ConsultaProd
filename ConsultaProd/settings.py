@@ -13,7 +13,7 @@ SECRET_KEY = '($w#f--wozg_z=mp7b#s)ookq@am-a@lhw4n6!bvasy1!-49(%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-#ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ['santhiagosdp.pythonanywhere.com']
 ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
 
 

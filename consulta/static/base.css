@@ -1,0 +1,37 @@
+body {
+    background: #e2d6f5;
+}
+
+main {
+    background: white;
+    margin: 20px 0;
+    padding: 10px;
+}
+
+.lista {
+    background: rgb(255, 255, 255);
+    margin: 20px 0;
+    padding: 10px;
+}
+
+.center {
+    margin: 0 auto;
+    width: 200px;
+    background: black;
+    padding: 20px;
+    color: white;
+}
+
+.centrodiv {
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.centroPesq {
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.right {
+    text-align: right;
+}
