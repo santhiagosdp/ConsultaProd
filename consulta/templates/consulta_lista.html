@@ -41,14 +41,15 @@
                     {% for produto in prods %}
                     <div class="card" style="width: auto;">
                         <div class="card-body">
-                            <h5 class="card-header">{{ produto.nomeProduto }}</h5>
+                            <h5 class="card-header">{{ produto.nome }}</h5>
                         </div>
                         <div class="card-body">
-                            Mercado: {{ produto.fantasia }}
-                            <br> Endereço: {{ produto.endereco }}
-                            <br> Valor: {{ produto.preco }}
-                            <br> Data: {{ produto.dataCompra }}
-                            <!--<br> Data: {{ produto.author }}-->
+                            <b>Mercado:</b> {{ produto.nota.mercado.nome }}
+                            <br> <b>Nome Fantasia:</b> {{ produto.nota.mercado.fantasia }}
+                            <br> <b>Endereço:</b> {{ produto.nota.mercado.endereco }}
+                            <br> <b>Valor:</b> {{ produto.preco }}
+                            <br> <b>Data:</b> {{ produto.nota.dataCompra }}
+                            <!--<br> <b>Data:</b> {{ produto.nota.publicacao }} -->
                         </div>
                     </div>
                     <br> {% endfor %}
