@@ -20,14 +20,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 def cadastrar_usuario(request):
-    if request.method == "POST":
-        form_usuario = UserCreationForm(request.POST)
-        if form_usuario.is_valid():
-            form_usuario.save()
-            return redirect('consulta_lista')
-    else:
-        form_usuario = UserCreationForm()
-    return render(request, 'cadastro.html', {'form_usuario': form_usuario})
+    form_usuario = UserCreationForm(request.POST)
+    if form_usuario.is_valid():
+        form_usuario.save()
+        return redirect('consulta_lista')
+
+    return redirect('logar_usuario')
 
 def logar_usuario(request):
     if request.method == "POST":
@@ -49,27 +47,41 @@ def logout_view(request):
 
 #########  Fim Autenticação #################
 
-
-
 @login_required
 #Página de consulta INDEX
 def consulta_lista(request):
     usuario = request.user
     #print(usuario)
     #prods = Produto.objects.filter(usuario=usuario) #busca somente elementos do usuario logado
-    prods = Produto.objects.all() #busca todos elementos
+    prods = Produto.objects.all().order_by('nome') #busca todos elementos
     #prods = Produto.objects.get(especifo)  #Busca elemento Especifico
     
     #return HttpResponse(prods[0].usuario)
     pesquisa = request.GET.get('search')
     if pesquisa:
-        prods = Produto.objects.filter(nome__icontains=pesquisa.rstrip().lstrip())
+        prods = Produto.objects.filter(nome__icontains=pesquisa.rstrip().lstrip()).order_by('nome')
        #print("antes"+pesquisa.rstrip().lstrip()+"depois")
     else:
         pesquisa = "Digite o nome do produto"
 
     return render(request, 'consulta_lista.html', {'prods': prods, 'pesquisa': pesquisa})
 
+@login_required
+def consulta_lista_mercado(request,id):
+    usuario = request.user
+    mercado = Emitente.objects.get(id=id)
+    produtosTodos = Produto.objects.all().order_by('id') #busca todos elementos
+    prods = []
+    for produto in produtosTodos:
+        if produto.nota.mercado == mercado:
+            prods.append(produto)
+    pesquisa = request.GET.get('search')
+    if pesquisa:
+        prods = Produto.objects.filter(nome__icontains=pesquisa.rstrip().lstrip()).order_by('nome')
+    else:
+        pesquisa = "Digite o nome do produto"
+    sair = " - Sair"
+    return render(request, 'consulta_lista.html', {'prods': prods, 'pesquisa': pesquisa, 'mercado':mercado, 'sair':sair})
 
 
 @login_required
@@ -85,7 +97,49 @@ def addXML(request):
         xmlToJson(request)
         apagarEntrada(request)
     apagarEntrada(request)
-    return render(request, 'addXML.html', {})
+    #return render(request, 'addXML.html', {})
+    return redirect('consulta_lista')
+
+def addAvulso(request):
+    usuario = request.user
+
+    nomeMercado = request.POST.get('nomeM')
+    cnpj= request.POST.get('cnpj')
+    cidade = request.POST.get('cidade')
+    estado = request.POST.get('estado')
+    endereco = request.POST.get('endereco')
+    emitente = Emitente.objects.create(
+        usuario = usuario,
+        nome=nomeMercado,
+        fantasia=nomeMercado,
+        cnpj=cnpj,
+        cidade = cidade,
+        estado = estado,
+        endereco = endereco
+        )
+    
+    #adicionando nota avulsa
+    dtcompra = timezone.now()
+    chave = "Adicionado Avulso"
+    nota = Nota.objects.create(
+        usuario = usuario,
+        mercado = emitente,
+        dataCompra = dtcompra,
+        chave=chave
+    )
+
+    #adicionando produto avulso
+    nome = request.POST.get('nomeP')
+    preco = request.POST.get('preco')
+    produto = Produto.objects.create(
+        usuario=usuario,
+        nota = nota,
+        nome = nome,
+        preco = preco
+    )
+    #return render(request, 'addXML.html', {})
+    return redirect('consulta_lista')
+
 
 #converter XML em Formato JSON
 def xmlToJson(request):

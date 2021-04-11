@@ -27,6 +27,24 @@ main {
     width: fit-content;
 }
 
+.titulo {
+    margin: 0 auto;
+    width: fit-content;
+    color: white;
+    font-weight: bold;
+    font-weight: bolder;
+    padding: 2%;
+}
+
+.titulo2 {
+    color: black;
+}
+
+.sair {
+    color: white;
+    font-size: 80%;
+}
+
 .centroPesq {
     margin: 0 auto;
     width: fit-content;

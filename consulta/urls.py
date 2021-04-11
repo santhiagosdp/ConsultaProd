@@ -8,9 +8,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('accounts/login/', views.logar_usuario, name="logar_usuario"),
     path('sair', views.logout_view, name="logout_view"),
-    path('cadastrar_usuario', views.cadastrar_usuario, name="cadastrar_usuario"),
+    path('cadastrar_usuario/', views.cadastrar_usuario, name="cadastrar_usuario"),
     path('', views.consulta_lista, name='consulta_lista'),
-    path('addXML/', views.addXML, name='Adicionar_XML'),
+    path('mercado/<int:id>', views.consulta_lista_mercado),
+    path('add1/', views.addXML, name='Adicionar_XML'),
+    path('add2/', views.addAvulso, name='Adicionar_Avulso'),
 ]
 
 if settings.DEBUG:
