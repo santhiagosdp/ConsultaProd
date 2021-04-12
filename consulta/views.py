@@ -59,7 +59,7 @@ def consulta_lista(request):
     #return HttpResponse(prods[0].usuario)
     pesquisa = request.GET.get('search')
     if pesquisa:
-        prods = Produto.objects.filter(nome__icontains=pesquisa.rstrip().lstrip()).order_by('nome')
+        prods = Produto.objects.filter(nome__icontains=pesquisa.rstrip().lstrip()).order_by('data')
        #print("antes"+pesquisa.rstrip().lstrip()+"depois")
     else:
         pesquisa = "Digite o nome do produto"
@@ -70,14 +70,10 @@ def consulta_lista(request):
 def consulta_lista_mercado(request,id):
     usuario = request.user
     mercado = Emitente.objects.get(id=id)
-    produtosTodos = Produto.objects.all().order_by('id') #busca todos elementos
-    prods = []
-    for produto in produtosTodos:
-        if produto.nota.mercado == mercado:
-            prods.append(produto)
+    prods = Produto.objects.filter( nota__mercado = mercado ).order_by('-data') #busca todos elementos
     pesquisa = request.GET.get('search')
     if pesquisa:
-        prods = Produto.objects.filter(nome__icontains=pesquisa.rstrip().lstrip()).order_by('nome')
+        prods = Produto.objects.filter( nota__mercado = mercado, nome__icontains=pesquisa.rstrip().lstrip()).order_by('nome')
     else:
         pesquisa = "Digite o nome do produto"
     sair = " - Sair"
@@ -246,6 +242,7 @@ def cadastrarProdutoDB(dado,usuario,nota):
 
             nome = nomeProduto(item)
             preco = precoP(item)
+            data = nota.dataCompra
             produtos = Produto.objects.filter(nome=nome)
             if produtos:
                 for prod in produtos:
@@ -255,6 +252,7 @@ def cadastrarProdutoDB(dado,usuario,nota):
                             #print(preco)
                         prod.nota = nota
                         prod.preco = preco
+                        prod.data = data
                         prod.save()
             else:
                 #inserindo o produto um por um da lista
@@ -262,7 +260,8 @@ def cadastrarProdutoDB(dado,usuario,nota):
                         usuario=usuario,
                         nota = nota,
                         nome = nome,
-                        preco = preco
+                        preco = preco,
+                        data = data
                 )
     else:
         nome = nomeProduto(det)
@@ -275,6 +274,8 @@ def cadastrarProdutoDB(dado,usuario,nota):
                     #alterando o produto ja cadastrado
                     prod.nota = nota
                     prod.preco = preco
+                    prod.data = data
+
                     prod.save()
 
         else:
@@ -283,7 +284,9 @@ def cadastrarProdutoDB(dado,usuario,nota):
                     usuario=usuario,
                     nota = nota,
                     nome = nome,
-                    preco = preco
+                    preco = preco,
+                    data = data
+
             )
 #################  FIM DO Adicionar PRODUTO  CASO VALOR NO MESMO MERCADO SEJA MENOR E A DATA MAIS RECENTE##########################
 
@@ -324,11 +327,7 @@ def chaveNF(dado):
 #Apagar xml criado só pra converter
 def apagarEntrada(request):
     path = "xmlAdd/"
-    #if os.mkdir(path): # aqui criamos a pasta caso nao exista
-            #makedirs(path)
     #path = "santhiagosdp.pythonanywhere.com/xmlAdd/"          ######descomentar online#########
-    #if os.mkdir(path): # aqui criamos a pasta caso nao exista
-        #makedirs("C:\ Backup\ ")
     dir = os.listdir(path)
     for file in dir:
         if file == 'xmlImport.xml':
