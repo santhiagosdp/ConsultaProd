@@ -60,6 +60,10 @@
                             </div>
                         </div>
                     </form>
+                    <div class="modal-footer centrodiv">
+                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exemploXML">Exemplo Download XML</button>
+                    </div>
+                    <div class="modal-footer"></div>
                 </div>
             </div>
         </div>
@@ -93,6 +97,29 @@
                 </div>
             </div>
         </div>
+    </div>
+
+
+    <!-- Modal adicionando #EXEMPLO DE BAIXAR XML -->
+    <div class="modal fade" id="exemploXML" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Exemplo de Download do XML NFC-e</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body centrodiv">
+                    <video width="320" height="240" controls>
+                        <source src="{% static 'exemploXML.mp4' %}" autostart="true"  type="video/mp4" frameborder="0">
+                    </video>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-primary">Concluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 
 
