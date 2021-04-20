@@ -13,6 +13,8 @@ urlpatterns = [
     path('mercado/<int:id>', views.consulta_lista_mercado),
     path('add1/', views.addXML, name='Adicionar_XML'),
     path('add2/', views.addAvulso, name='Adicionar_Avulso'),
+    path('qrcode/', views.addqrcode, name='adicionar_qrcode'),
+    path('addlote/', views.addLote, name='adicionar_Lote'),
 ]
 
 if settings.DEBUG:

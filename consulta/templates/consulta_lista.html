@@ -16,6 +16,7 @@
 </head>
 
 <body>
+    <a href="/addlote">lote</a>
     <main class="right">
         <a type="button" class="btn btn-danger" href="/sair" (sair)>Usuário: {{request.user}} - Sair</a>
     </main>
@@ -30,6 +31,8 @@
             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#xmladd1">Adicionar NFC XML</button>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#avulsoAdd2">Adicionar avulso</button>
+
+            <!-- <a type="button" class="btn btn-primary" href="qrcode">Leitor de QrCode</a> -->
         </div>
 
         <!-- Modal adicionando #xmladd1 -->
@@ -109,22 +112,18 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body centrodiv">
-                    <video width="320" height="240" controls>
+                    <!-- <video width="320" height="240" controls>
                         <source src="{% static 'exemploXML.mp4' %}" autostart="true"  type="video/mp4" frameborder="0">
-                    </video>
+                    </video> -->
+                    <img src="{% static 'exemploXML.gif' %}" width="100%" height="100%">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-primary">Concluir</button>
                 </div>
             </div>
         </div>
     </div>
     </div>
-
-
-
-
 
     <main class="lista">
 
