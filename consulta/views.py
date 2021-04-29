@@ -32,8 +32,11 @@ def cadastrar_usuario(request):
 def logar_usuario(request):
     if request.method == "POST":
         username = request.POST["username"]
+        #print(username)
         password = request.POST["password"]
+        #print(password)
         usuario = authenticate(request, username=username, password=password)
+        #print(usuario)
         if usuario is not None:
             login(request, usuario)
             return redirect('consulta_lista')
