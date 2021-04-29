@@ -1,5 +1,5 @@
 # ConsultaProd
 
-Pode ser veirficado no Link: 
+Pode ser verificado no Link: 
 http://santhiagosdp.pythonanywhere.com/
  
