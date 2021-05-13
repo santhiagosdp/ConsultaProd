@@ -70,8 +70,8 @@ def consulta_lista(request):
         pesquisa = "Digite o nome do produto"
     
     Acesso.objects.create(nome=request.user,data=datetime.now())
-
-    return render(request, 'consulta_lista.html', {'prods': prods, 'pesquisa': pesquisa})
+    contador = len(prods)
+    return render(request, 'consulta_lista.html', {'prods': prods, 'pesquisa': pesquisa, 'contador':contador})
 
 
 @login_required
@@ -93,7 +93,8 @@ def consulta_lista_mercado(request,id):
     else:
         pesquisa = "Digite o nome do produto"
     sair = " - Sair"
-    return render(request, 'consulta_lista.html', {'prods': prods, 'pesquisa': pesquisa, 'mercado':mercado, 'sair':sair})
+    contador = len(prods)
+    return render(request, 'consulta_lista.html', {'prods': prods, 'pesquisa': pesquisa, 'mercado':mercado, 'sair':sair, 'contador':contador})
 
 
 @login_required
