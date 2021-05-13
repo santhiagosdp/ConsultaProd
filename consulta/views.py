@@ -1,10 +1,10 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.utils import timezone
-from .models import Produto, Emitente, Nota
+from .models import Produto, Emitente, Nota, Acesso
 from datetime import datetime, date
 import datetime
-from datetime import date
+from datetime import date, datetime
 import json
 import xmltodict
 from django.conf import settings
@@ -68,8 +68,19 @@ def consulta_lista(request):
        #print("antes"+pesquisa.rstrip().lstrip()+"depois")
     else:
         pesquisa = "Digite o nome do produto"
+    
+    Acesso.objects.create(nome=request.user,data=datetime.now())
 
     return render(request, 'consulta_lista.html', {'prods': prods, 'pesquisa': pesquisa})
+
+
+@login_required
+def acessos(request):
+    consulta = Acesso.objects.all()
+    #acessos = json.dumps(consulta, indent=2)
+    #for c in consulta: 
+        #acessos.append = c.nome
+    return HttpResponse(consulta)
 
 @login_required
 def consulta_lista_mercado(request,id):

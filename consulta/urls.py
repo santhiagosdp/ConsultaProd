@@ -15,6 +15,7 @@ urlpatterns = [
     path('add2/', views.addAvulso, name='Adicionar_Avulso'),
     path('qrcode/', views.addqrcode, name='adicionar_qrcode'),
     path('addlote/', views.addLote, name='adicionar_Lote'),
+    path('acessos/', views.acessos, name='acessos'),
 ]
 
 if settings.DEBUG:

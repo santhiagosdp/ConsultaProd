@@ -80,3 +80,14 @@ class Produto(models.Model):
     )
     def __str__(self):
         return self.nome
+
+class Acesso(models.Model):
+    nome = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL       
+        )
+    data = models.DateTimeField(
+        default = timezone.now()
+    )
