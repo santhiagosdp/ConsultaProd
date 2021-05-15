@@ -26,8 +26,10 @@ def cadastrar_usuario(request):
     if form_usuario.is_valid():
         form_usuario.save()
         return redirect('consulta_lista')
+    else:
+        return render(request, 'login.html', {'form_usuario': form_usuario})
 
-    return redirect('logar_usuario')
+    #return redirect('logar_usuario')
 
 def logar_usuario(request):
     if request.method == "POST":
@@ -39,6 +41,10 @@ def logar_usuario(request):
         #print(usuario)
         if usuario is not None:
             login(request, usuario)
+            usuario.email = usuario.username
+            usuario.save()
+            #print(usuario.email)
+            print("usuario.username")
             return redirect('consulta_lista')
         else:
             form_login = AuthenticationForm()
@@ -76,11 +82,14 @@ def consulta_lista(request):
 
 @login_required
 def acessos(request):
-    consulta = Acesso.objects.all()
-    #acessos = json.dumps(consulta, indent=2)
-    #for c in consulta: 
-        #acessos.append = c.nome
-    return HttpResponse(consulta)
+    acessos =[]
+    print(request.user)
+    if request.user.username == 'santhiago':
+        acessos = Acesso.objects.filter().order_by('-data')
+        print("entrou")
+        #return HttpResponse(consulta)
+    return render(request, 'acessos.html', {'acessos': acessos})
+
 
 @login_required
 def consulta_lista_mercado(request,id):

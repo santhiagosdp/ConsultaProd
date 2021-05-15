@@ -9,8 +9,10 @@ from django.utils.timezone import now
 class Emitente(models.Model):
     usuario = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE
-    )
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL
+        )
     nome = models.CharField(
         max_length=100
     )
