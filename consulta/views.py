@@ -58,29 +58,29 @@ def logout_view(request):
 
 #########  Fim Autenticação #################
 
-@login_required
+#@login_required
 #Página de consulta INDEX
 def consulta_lista(request):
     usuario = request.user
     #print(usuario)
     #prods = Produto.objects.filter(usuario=usuario) #busca somente elementos do usuario logado
-    prods = Produto.objects.all().order_by('nome') #busca todos elementos
+    prods = Produto.objects.all().order_by('-data') #busca todos elementos
     #prods = Produto.objects.get(especifo)  #Busca elemento Especifico
 
     #return HttpResponse(prods[0].usuario)
     pesquisa = request.GET.get('search')
     if pesquisa:
-        prods = Produto.objects.filter(nome__icontains=pesquisa.rstrip().lstrip()).order_by('data')
+        prods = Produto.objects.filter(nome__icontains=pesquisa.rstrip().lstrip()).order_by('-data')
        #print("antes"+pesquisa.rstrip().lstrip()+"depois")
     else:
         pesquisa = "Digite o nome do produto"
-    
-    Acesso.objects.create(nome=request.user,data=datetime.now())
+
+    #Acesso.objects.create(nome=request.user,data=datetime.now())
     contador = len(prods)
     return render(request, 'consulta_lista.html', {'prods': prods, 'pesquisa': pesquisa, 'contador':contador})
 
 
-@login_required
+#@login_required
 def acessos(request):
     acessos =[]
     print(request.user)
@@ -106,6 +106,16 @@ def consulta_lista_mercado(request,id):
     return render(request, 'consulta_lista.html', {'prods': prods, 'pesquisa': pesquisa, 'mercado':mercado, 'sair':sair, 'contador':contador})
 
 
+def TESTEaddXML(request):
+    if request.method == 'POST' and request.FILES['myfile[]']:
+        myfile = request.FILES['myfile[]']
+
+    return HttpResponse(myfile[0])
+
+
+
+'''
+
 @login_required
 #Página para adicionar produtos através do XML
 def addXML(request):
@@ -118,29 +128,49 @@ def addXML(request):
 
         xmlToJson(request)
         apagarEntrada(request)
+        #shutil.move('santhiagosdp.pythonanywhere.com/xmlAdd/{}'.format(xml),'santhiagosdp.pythonanywhere.com/xmlAdd/adicionadas/') ###### descomentar online#########
     apagarEntrada(request)
     #return render(request, 'addXML.html', {})
     return redirect('consulta_lista')
+    
+    '''
+
+
+
+
+# LOGICA TESTE PARA ADD VARIOS XMLs
+def addXML(request):
+    if request.method == 'POST' and request.FILES['myfile']:
+        myfile = request.FILES['myfile']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)  # Cria para salvar
+        filename = fs.save( 'xmlImport.xml', myfile)  # Cria para importar
+        uploaded_file_url = fs.url(filename)
+
+        xmlToJson(request)
+        apagarEntrada(request)
+        #shutil.move('santhiagosdp.pythonanywhere.com/xmlAdd/{}'.format(xml),'santhiagosdp.pythonanywhere.com/xmlAdd/adicionadas/') ###### descomentar online#########
+    apagarEntrada(request)
+    #return render(request, 'addXML.html', {})
+    return redirect('consulta_lista')
+
 
 
 import shutil
 from os import listdir
 from os.path import isfile, join
 def addLote (request):
-    path = 'xmlAdd/'
-    #path = 'santhiagosdp.pythonanywhere.com/xmlAdd/'  ######descomentar online#########
+    path = 'xmlAdd/'  ######descomentar online   santhiagosdp.pythonanywhere.com/ #########
     repetidas = []
     repetidas2 = []
 
     files = [f for f in listdir(path) if isfile(join(path, f))]
     for xml in files:
-        with open('xmlAdd/{}'.format(xml)) as xml_file:
-        #with open('santhiagosdp.pythonanywhere.com/xmlAdd/{}'.format(xml)) as xml_file: ###### descomentar online#########
+        with open('xmlAdd/{}'.format(xml)) as xml_file: ###### descomentar online#########
             data_dict = xmltodict.parse(xml_file.read())
         xml_file.close()
         json_data = json.dumps(data_dict)
-        with open("consulta/xmlAdd/data.json", "w") as json_file:
-        #with open("santhiagosdp.pythonanywhere.com/consulta/xmlAdd/data.json", "w") as json_file:  ###### descomentar online#########
+        with open("consulta/xmlAdd/data.json", "w") as json_file:  ###### descomentar online#########
             json_file.write(json_data)
         json_file.close()
         data = json.loads(json_data)
@@ -150,21 +180,21 @@ def addLote (request):
         if notas:
             repetidas.append(xml)
             repetidas2.append(chave)
-            shutil.move('xmlAdd/{}'.format(xml),'xmlAdd/repetidos') 
-            #shutil.move('santhiagosdp.pythonanywhere.com/xmlAdd/{}'.format(xml),'santhiagosdp.pythonanywhere.com/xmlAdd/repetidos') ###### descomentar online#########
+            shutil.move('xmlAdd/{}'.format(xml),'xmlAdd/repetidos/') ###### descomentar online#########
         else:
             emitente = cadastrarEmitenteDB(data,usuario)
             nota = cadastrarNotaDB(data,usuario,emitente)
             cadastrarProdutoDB(data,usuario,nota)
-            shutil.move('xmlAdd/{}'.format(xml),'xmlAdd/adicionados')
-            #shutil.move('santhiagosdp.pythonanywhere.com/xmlAdd/{}'.format(xml),'santhiagosdp.pythonanywhere.com/xmlAdd/adicionados') ###### descomentar online#########
-    print (repetidas2)
-    print (repetidas)
+            shutil.move('xmlAdd/{}'.format(xml),'xmlAdd/adicionadas/') ###### descomentar online#########
+    #print (repetidas2)
+    #print (repetidas)
     #return HttpResponse("adicionados")
     return redirect('consulta_lista')
 
 
-
+def uploadlote (request):
+    
+    return HttpResponse("teste url Upload  Lote")
 
 ####### INICIAL  - TESTE ADD VIA QRCODE #########################
 '''from pyzbar.pyzbar import decode
@@ -320,14 +350,12 @@ def addAvulso(request):
 def xmlToJson(request):
     # def consulta_lista(request):
     # LENDO XML
-    with open("xmlAdd/xmlImport.xml") as xml_file:
-    #with open("santhiagosdp.pythonanywhere.com/xmlAdd/xmlImport.xml") as xml_file:  ######descomentar online#########
+    with open("xmlAdd/xmlImport.xml") as xml_file:  ######descomentar online#########
         data_dict = xmltodict.parse(xml_file.read())
     xml_file.close()
     # SALVANDO EM JSON
     json_data = json.dumps(data_dict)
-    with open("consulta/xmlAdd/data.json", "w") as json_file:
-    #with open("santhiagosdp.pythonanywhere.com/consulta/xmlAdd/data.json", "w") as json_file:  ######descomentar online#########
+    with open("consulta/xmlAdd/data.json", "w") as json_file:  ######descomentar online#########
         json_file.write(json_data)
     json_file.close()
 
@@ -339,6 +367,7 @@ def xmlToJson(request):
     chave = chaveNF(data)
     notas = Nota.objects.filter(chave=chave)
     if notas:
+        #shutil.move('xmlAdd/{}'.format(xml),'xmlAdd/repetidos/') ###### descomentar online#########
         return 0
     #for nota in basedados:
         #if prod.nota.chave == chave:
@@ -506,11 +535,15 @@ def chaveNF(dado):
 
 #Apagar xml criado só pra converter
 def apagarEntrada(request):
-    path = "xmlAdd/"
-    #path = "santhiagosdp.pythonanywhere.com/xmlAdd/"          ######descomentar online#########
+    #path = "xmlAdd/"
+    path = "xmlAdd/"          ######descomentar online#########
     dir = os.listdir(path)
     for file in dir:
         if file == 'xmlImport.xml':
            # print("file")
            # print(file)
             os.remove('{}/{}'.format(path, "xmlImport.xml"))
+
+
+
+

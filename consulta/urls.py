@@ -15,6 +15,7 @@ urlpatterns = [
     path('add2/', views.addAvulso, name='Adicionar_Avulso'),
     path('qrcode/', views.addqrcode, name='adicionar_qrcode'),
     path('addlote/', views.addLote, name='adicionar_Lote'),
+    path('uploadlote/', views.uploadlote, name='Upload_Lote_Do_PC'),
     path('acessos/', views.acessos, name='acessos'),
 ]
 
