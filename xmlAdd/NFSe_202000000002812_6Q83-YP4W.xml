@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CompNfse xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.abrasf.org.br/nfse.xsd">
+  <Nfse versao="2.02">
+    <InfNfse Id="NFSe202000000002812">
+      <Numero>202000000002812</Numero>
+      <CodigoVerificacao>6Q83-YP4W</CodigoVerificacao>
+      <DataEmissao>2020-11-25T09:04:29.68</DataEmissao>
+      <OutrasInformacoes>ISS Retido pelo Tomador.\s\nOptante do Simples Nacional.\s\nTrib. aprox. R$ 5,38 Federal e R$ 2,00 Municipal. Fonte: IBPT [5DC0AE]\s\n</OutrasInformacoes>
+      <ValoresNfse>
+        <BaseCalculo>40</BaseCalculo>
+        <Aliquota>3.15</Aliquota>
+        <ValorIss>1.26</ValorIss>
+        <ValorLiquidoNfse>38.74</ValorLiquidoNfse>
+      </ValoresNfse>
+      <PrestadorServico>
+        <IdentificacaoPrestador>
+          <CpfCnpj>
+            <Cnpj>26962126000130</Cnpj>
+          </CpfCnpj>
+          <InscricaoMunicipal>795</InscricaoMunicipal>
+        </IdentificacaoPrestador>
+        <RazaoSocial>FERRARI E CARDOSO LTDA ME</RazaoSocial>
+        <NomeFantasia>FRAGATA LAVAJATO</NomeFantasia>
+        <Endereco>
+          <Endereco>Quadra 101 Norte Avenida Joaquim Teotônio Segurado</Endereco>
+          <Numero>SN</Numero>
+          <Bairro>Plano Diretor Norte</Bairro>
+          <CodigoMunicipio>1721000</CodigoMunicipio>
+          <Uf>To</Uf>
+          <Cep>77001004</Cep>
+        </Endereco>
+        <Contato>
+          <Telefone>6332151537</Telefone>
+          <Email>fragatafinaceiro@gmail.com</Email>
+        </Contato>
+      </PrestadorServico>
+      <OrgaoGerador>
+        <CodigoMunicipio>1721000</CodigoMunicipio>
+        <Uf>To</Uf>
+      </OrgaoGerador>
+      <DeclaracaoPrestacaoServico>
+        <InfDeclaracaoPrestacaoServico>
+          <Competencia>2020-11-01</Competencia>
+          <Servico>
+            <Valores>
+              <ValorServicos>40</ValorServicos>
+            </Valores>
+            <IssRetido>1</IssRetido>
+            <ItemListaServico>1401</ItemListaServico>
+            <CodigoCnae>4520005</CodigoCnae>
+            <CodigoTributacaoMunicipio>1401</CodigoTributacaoMunicipio>
+            <Discriminacao>LAVAGEM DE VEÍCULO \s\nPLACA: JJC-0201 PALIO\s\nOS 202011/272425-584</Discriminacao>
+            <CodigoMunicipio>1721000</CodigoMunicipio>
+            <ExigibilidadeISS>1</ExigibilidadeISS>
+            <MunicipioIncidencia>1721000</MunicipioIncidencia>
+          </Servico>
+          <Prestador>
+            <CpfCnpj>
+              <Cnpj>26962126000130</Cnpj>
+            </CpfCnpj>
+            <InscricaoMunicipal>795</InscricaoMunicipal>
+          </Prestador>
+          <Tomador>
+            <IdentificacaoTomador>
+              <CpfCnpj>
+                <Cnpj>01175497000141</Cnpj>
+              </CpfCnpj>
+            </IdentificacaoTomador>
+            <RazaoSocial>AGENCIA BRASILEIRA DE INTELIGENCIA-ABIN/GSI/PR</RazaoSocial>
+            <Endereco>
+              <Endereco>SPO Área 5 Quadras 1 e 2</Endereco>
+              <Numero>0</Numero>
+              <Bairro>Setores Complementares</Bairro>
+              <CodigoMunicipio>5300108</CodigoMunicipio>
+              <Uf>DF</Uf>
+              <CodigoPais>1058</CodigoPais>
+              <Cep>70610905</Cep>
+            </Endereco>
+            <Contato>
+              <Telefone>6134458188</Telefone>
+              <Email>da@abin.gov.br</Email>
+            </Contato>
+          </Tomador>
+          <RegimeEspecialTributacao>6</RegimeEspecialTributacao>
+          <OptanteSimplesNacional>1</OptanteSimplesNacional>
+          <IncentivoFiscal>2</IncentivoFiscal>
+        </InfDeclaracaoPrestacaoServico>
+      </DeclaracaoPrestacaoServico>
+    </InfNfse>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI="#NFSe202000000002812"><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>UvWNIpYPinWKeVchTXqmCBJmJps=</DigestValue></Reference></SignedInfo><SignatureValue>UkvEBNHdG9tpMUUebtqHMvOq4WqiO3P0L7KAK3FPDTej8yZetJ2D54M3jyHdCSu/hZ83xMKZhOCsxb7lPZ8TUESHA0hUqo8WH8thoOolP1MLlJgWLGxO+xzWHHDlb110FYrkN6umq7zhObOzbU+5/FxiH+VbGVf8tOM99zY64o1I64AEnziar3YJw4pqKN/sVIbo1OBtU4eDwIcZbxv9fC660CJbQlCYl6xkgqE4g+FbDoZX7p3Pn16E3Hh/m+5saocdyTCGdO6y6cuHwBF9yxOJotOnWcQidjIOTak3shfVi19omhTB8Pniv5LCDeCJuzQwp6JqtgChlqziIHvE6w==</SignatureValue><KeyInfo><X509Data><X509Certificate>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</X509Certificate></X509Data></KeyInfo></Signature></Nfse>
+</CompNfse>

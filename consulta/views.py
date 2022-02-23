@@ -1,3 +1,4 @@
+from pickle import TRUE
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -114,9 +115,10 @@ def TESTEaddXML(request):
 
 
 
-'''
-
-@login_required
+import shutil
+from os import listdir
+from os.path import isfile, join
+#@login_required
 #Página para adicionar produtos através do XML
 def addXML(request):
     if request.method == 'POST' and request.FILES['myfile']:
@@ -128,15 +130,15 @@ def addXML(request):
 
         xmlToJson(request)
         apagarEntrada(request)
+        shutil.move('xmlAdd/{}'.format(myfile),'xmlAdd/adicionadas/')
         #shutil.move('santhiagosdp.pythonanywhere.com/xmlAdd/{}'.format(xml),'santhiagosdp.pythonanywhere.com/xmlAdd/adicionadas/') ###### descomentar online#########
     apagarEntrada(request)
     #return render(request, 'addXML.html', {})
     return redirect('consulta_lista')
     
-    '''
+  
 
-
-
+'''
 
 # LOGICA TESTE PARA ADD VARIOS XMLs
 def addXML(request):
@@ -149,12 +151,13 @@ def addXML(request):
 
         xmlToJson(request)
         apagarEntrada(request)
+        shutil.move('xmlAdd/{}'.format(xml),'xmlAdd/adicionadas/')
         #shutil.move('santhiagosdp.pythonanywhere.com/xmlAdd/{}'.format(xml),'santhiagosdp.pythonanywhere.com/xmlAdd/adicionadas/') ###### descomentar online#########
     apagarEntrada(request)
     #return render(request, 'addXML.html', {})
     return redirect('consulta_lista')
 
-
+    '''
 
 import shutil
 from os import listdir
@@ -166,14 +169,23 @@ def addLote (request):
 
     files = [f for f in listdir(path) if isfile(join(path, f))]
     for xml in files:
+       
         with open('xmlAdd/{}'.format(xml)) as xml_file: ###### descomentar online#########
+            #print("DATA  INICIO 2 erro aqui")
+            #print(xml_file)
             data_dict = xmltodict.parse(xml_file.read())
+            #print("DATA  INICIO 3")
         xml_file.close()
+        #print("DATA  INICIO 4")
         json_data = json.dumps(data_dict)
+        #print("DATA  INICIO 5")
         with open("consulta/xmlAdd/data.json", "w") as json_file:  ###### descomentar online#########
             json_file.write(json_data)
         json_file.close()
         data = json.loads(json_data)
+        
+        #print(data)
+        #print("DATA  FIM 2")
         usuario = request.user
         chave = chaveNF(data)
         notas = Nota.objects.filter(chave=chave)
@@ -409,6 +421,7 @@ def cadastrarEmitenteDB(dado, usuario):
         return mercado
     else:
         # Criando o mercado
+        print("INSERINDO EMITENTE NO BD")
         emitente = Emitente.objects.create(
             usuario = usuario,
             nome=nome,
@@ -426,6 +439,7 @@ def cadastrarEmitenteDB(dado, usuario):
 def cadastrarNotaDB(dado,usuario,emitente):
     dtcompra = dataCompra(dado)
     chave = chaveNF(dado)
+    print("INSERINDO NF NO BD")
     nota =Nota.objects.create(
         usuario = usuario,
         mercado = emitente,
@@ -464,6 +478,7 @@ def cadastrarProdutoDB(dado,usuario,nota):
                         prod.save()
             else:
                 #inserindo o produto um por um da lista
+                print("INSERINDO VÁRIOS PRODUTOS NO BD")
                 produto = Produto.objects.create(
                         usuario=usuario,
                         nota = nota,
@@ -489,6 +504,7 @@ def cadastrarProdutoDB(dado,usuario,nota):
 
         else:
             #inserindo o produto único
+            print("INSERINDO PRODUTO ÚNICO NO BD")
             produto = Produto.objects.create(
                     usuario=usuario,
                     nota = nota,
@@ -507,14 +523,33 @@ def cadastrarProdutoDB(dado,usuario,nota):
 # Retornar o nomeProduto
 def nomeProduto(dado):
     data = dado.get("prod")
-    data = data.get("xProd")
-    return data
+    nome = data.get("xProd")
+    cprod = data.get("cProd")
+    ncm = data.get("NCM")
+    todo = nome+" - NCM:"+ncm+" - Cod:"+cprod
+    #print('**********************************************************************************')
+    print("nome produto retornado: "+todo)
+    return todo
 
 # Retornar Preço
 def precoP(dado):
     data = dado.get("prod")
-    data = data.get("vUnCom")
-    return data
+    valorVenda = float(data.get("vUnCom"))
+    desc = float(0)
+    print('**********************************************************************************')
+    print(data.get("vDesc"))
+    if data.get("vDesc") != None:
+        #print ("valor igual a NONE")
+        desc = float(data.get("vDesc"))
+    print('**********************************************************************************')
+    print(desc)
+    if (desc != 0):
+        valorVenda = valorVenda - desc
+
+    print("Preço produto retornado: ")
+    print(valorVenda)
+    return valorVenda
+    #31220211200418000673550010401552471220982742
 
 # Retornar Data da Compra
 def dataCompra(dado):
@@ -522,6 +557,7 @@ def dataCompra(dado):
     data = data.get("protNFe")
     data = data.get("infProt")
     data = data.get("dhRecbto")
+    print("data compra produto retornado: "+data)
     return data
 
 # Retornar Chave da NF
@@ -530,6 +566,7 @@ def chaveNF(dado):
     data = data.get("protNFe")
     data = data.get("infProt")
     data = data.get("chNFe")
+    print("Chave NF retornado: "+data)
     return data
 
 
@@ -541,7 +578,8 @@ def apagarEntrada(request):
     for file in dir:
         if file == 'xmlImport.xml':
            # print("file")
-           # print(file)
+           # # print(file)
+            print("APAGANDO XMLIMPORT")
             os.remove('{}/{}'.format(path, "xmlImport.xml"))
 
 
