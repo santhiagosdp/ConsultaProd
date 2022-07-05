@@ -12,11 +12,16 @@ urlpatterns = [
     path('', views.consulta_lista, name='consulta_lista'),
     path('mercado/<int:id>', views.consulta_lista_mercado),
     path('add1/', views.addXML, name='Adicionar_XML'),
-    path('add2/', views.addAvulso, name='Adicionar_Avulso'),
+    path('add1/', views.addXML, name='Adicionar_XML'),
+    path('sudo apt-get install python3-pip/', views.addFotoNFC, name='Adicionar_FotoNFC'),
+    
     path('qrcode/', views.addqrcode, name='adicionar_qrcode'),
     path('addlote/', views.addLote, name='adicionar_Lote'),
     path('uploadlote/', views.uploadlote, name='Upload_Lote_Do_PC'),
     path('acessos/', views.acessos, name='acessos'),
+    path('teste/', views.teste, name='teste'),
+
+    
 ]
 
 if settings.DEBUG:

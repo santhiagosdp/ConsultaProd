@@ -30,6 +30,8 @@
             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#xmladd1">Adicionar NFC XML</button>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#avulsoAdd2">Adicionar avulso</button>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#FOTOadd3">Adicionar Foto NFC</button>
 
             <!-- <a type="button" class="btn btn-primary" href="qrcode">Leitor de QrCode</a> -->
         </div>
@@ -97,6 +99,42 @@
                         </div>
                     </form>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal adicionando #FOTO Add3 -->
+    <div class="modal fade" id="FOTOadd3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Adicionar Foto do Qr Code da NFC</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" action="/add3/" enctype="multipart/form-data">{% csrf_token %}
+                    <div class="modal-body">
+                        <!-- COMPONENT START -->
+                        <div class="form-group">
+                            <div class="input-group" name="Fichier1">
+                                <div>
+                                    <input type="file" accept=".jpeg" class="form-control" id="myfile" name="myfile">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default btn-choose" type="button"></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- COMPONENT END -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                <button type="submit" class="btn btn-primary">Enviar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="modal-footer centrodiv">
+                    <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exemploXML">Exemplo Download XML</button>
+                </div>
+                <div class="modal-footer"></div>
             </div>
         </div>
     </div>
